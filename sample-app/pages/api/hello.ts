@@ -1,13 +1,17 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import axios from "axios";
 
-type Data = {
-  name: string
-}
+const prefecturesAPI = async () => {
+  const result = await axios
+    .get("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
+      headers: { "X-API-KEY": "" },
+    })
+    .then((res) => {
+      console.log(res);
+      console.log(res.data.result);
+      return res.data.result;
+    });
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
-}
+  return result;
+};
+
+export default prefecturesAPI;
